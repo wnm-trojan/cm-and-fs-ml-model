@@ -1,6 +1,6 @@
 # Online Crop Management And Forecasting System ML Model
 
-This is a vegetable slaes prediction ML Model. This system is part of Online Crop Management And Forecasting System for Farmers and Agro Business Industry.
+This is a vegetable sales prediction ML Model. This system is part of Online Crop Management And Forecasting System for Farmers and Agro Business Industry.
 
 ## Installation & Setup
 
