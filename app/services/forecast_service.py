@@ -2,7 +2,8 @@ import pandas as pd
 from sqlalchemy.orm import Session
 from app.models.sales import Sales
 from app.models.crop import Crop
-from datetime import datetime, timedelta
+from datetime import datetime
+from statsmodels.tsa.arima.model import ARIMA
 
 def forecast_sales(db: Session, future_periods: int = 12):
     sales_data = db.query(Sales).all()
@@ -14,12 +15,21 @@ def forecast_sales(db: Session, future_periods: int = 12):
     df = df.set_index("sale_timestamp")
     
     forecast_results = {}
+    
     for crop_id in df["crop_id"].unique():
         crop_df = df[df["crop_id"] == crop_id]["sale_qty"].resample("M").sum()
-        if len(crop_df) < 2:
+        
+        if len(crop_df) < 3:
             continue  # Skip if there's not enough data
         
-        forecast_results[crop_id] = crop_df.mean()
+        try:
+            model = ARIMA(crop_df, order=(3,1,0))  # ARIMA Model (p=3, d=1, q=0)
+            model_fit = model.fit()
+            forecast = model_fit.forecast(steps=future_periods)
+            
+            forecast_results[crop_id] = forecast.iloc[-1]  # Forecasted sales for the last period
+        except:
+            continue  # Skip if the model fails to fit
     
     if not forecast_results:
         return {"top_selling": {}, "low_selling": {}}
