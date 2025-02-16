@@ -1,14 +1,18 @@
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 class Settings(BaseSettings):
-    APP_NAME: str = "CM and FS ML Model"
-    DATABASE_URL: str = "mysql+pymysql://wnm:@localhost/fcms_db"
-    SECRET_KEY: str = "mysecretkey123"
-    ALGORITHM: str = "HS256"
+    APP_NAME: str
+    DATABASE_URL: str
+    SECRET_KEY: str
+    ALGORITHM: str
 
-class Config:
-    env_file = ".env"
+    class Config:
+        env_file = ".env"  # Specifies .env file to load variables
 
+# Create an instance of settings
 settings = Settings()
-load_dotenv()
