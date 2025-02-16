@@ -27,27 +27,20 @@ def forecast_sales(db: Session, future_periods: int = 12):
             model_fit = model.fit()
             forecast = model_fit.forecast(steps=future_periods)
             
-            forecast_results[crop_id] = forecast.iloc[-1]  # Forecasted sales for the last period
+            forecast_results[crop_id] = forecast.iloc[-1]  # Forecasted sales for the given period
         except:
             continue  # Skip if the model fails to fit
     
     if not forecast_results:
-        return {"top_selling": {}, "low_selling": {}}
+        return {"future_periods": future_periods, "top_selling": [], "low_selling": []}
     
     sorted_crops = sorted(forecast_results.items(), key=lambda x: x[1], reverse=True)
     
-    top_next_month = sorted_crops[0][0] if sorted_crops else None
-    low_next_month = sorted_crops[-1][0] if sorted_crops else None
-    top_next_year = sorted_crops[0][0] if sorted_crops else None
-    low_next_year = sorted_crops[-1][0] if sorted_crops else None
+    top_selling = [crop_names[crop_id] for crop_id, _ in sorted_crops[:min(3, len(sorted_crops))]]
+    low_selling = [crop_names[crop_id] for crop_id, _ in sorted_crops[-min(3, len(sorted_crops)):]]
     
     return {
-        "top_selling": {
-            "next_month": crop_names.get(top_next_month, "Unknown"),
-            "next_year": crop_names.get(top_next_year, "Unknown")
-        },
-        "low_selling": {
-            "next_month": crop_names.get(low_next_month, "Unknown"),
-            "next_year": crop_names.get(low_next_year, "Unknown")
-        }
+        "future_periods": future_periods,
+        "top_selling": top_selling,
+        "low_selling": low_selling
     }
