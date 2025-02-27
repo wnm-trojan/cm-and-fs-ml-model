@@ -2,6 +2,9 @@
 
 This is a vegetable sales prediction ML Model. This system is part of Online Crop Management And Forecasting System for Farmers and Agro Business Industry.
 
+## Wikis
+For more information about providing guidelines for your project, see https://medium.com/@warunamadushan92624.wm/building-a-sales-forecasting-api-system-with-fastapi-mysql-and-arima-a-step-by-step-guide-dac9e109df71
+
 ## Installation & Setup
 
 ### Prerequisites
