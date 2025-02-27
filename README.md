@@ -3,7 +3,7 @@
 This is a vegetable sales prediction ML Model. This system is part of Online Crop Management And Forecasting System for Farmers and Agro Business Industry.
 
 ## Wikis
-For more information about providing guidelines for your project, see https://medium.com/@warunamadushan92624.wm/building-a-sales-forecasting-api-system-with-fastapi-mysql-and-arima-a-step-by-step-guide-dac9e109df71
+For more information about providing guidelines for your project, see <a href="https://medium.com/@warunamadushan92624.wm/building-a-sales-forecasting-api-system-with-fastapi-mysql-and-arima-a-step-by-step-guide-dac9e109df71">Building a Sales Forecasting API System with FastAPI, MySQL, and ARIMA</a>
 
 ## Installation & Setup
 
@@ -64,5 +64,5 @@ pytest
 5. Open a Pull Request
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the Apache-2.0 license.
 
